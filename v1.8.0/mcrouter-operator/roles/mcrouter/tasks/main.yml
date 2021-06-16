@@ -1,0 +1,21 @@
+---
+- name: Create StatefulSet for Memcached
+  k8s:
+    definition: "{{ lookup('template', 'memcached_statefulset-j2.yaml')|from_yaml }}"
+
+- name: Create Service for Memcached
+  k8s:
+    definition: "{{ lookup('template', 'memcached_service-j2.yaml')|from_yaml }}"
+
+- name: Create Service for Mcrouter
+  k8s:
+    definition: "{{ lookup('template', 'mcrouter_service-j2.yaml')|from_yaml }}"
+
+- name: Create Service for Mcrouter
+  k8s:
+    definition: "{{ lookup('template', 'mcrouter_cm-j2.yaml')|from_yaml }}"
+
+- name: Create Deployment for Mcrouter attaching memcached instances to its pool
+  k8s:
+    definition: "{{ lookup('template', 'mcrouter_deployment-j2.yaml')|from_yaml }}"
+

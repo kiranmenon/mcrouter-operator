@@ -1,0 +1,55 @@
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: '{{ meta.name }}-mcrouter-config'
+  namespace: '{{ meta.namespace }}'
+data:
+  config.json: |
+    {
+      "macros": {
+        "createReplicatedPool": {
+          "type": "macroDef",
+          "params": [
+            "poolName"
+          ],
+          "result": {
+            "type": "OperationSelectorRoute",
+            "operation_policies": {
+              "add": "AllSyncRoute|Pool|%poolName%",
+              "delete": "AllSyncRoute|Pool|%poolName%",
+              "get": "LatestRoute|Pool|%poolName%",
+              "set": "AllSyncRoute|Pool|%poolName%"
+            }
+          }
+        }
+      },
+      "pools": {
+        "alpha": {
+          "servers": [
+            "alpha-memcached-0.memcached-pool.dx4c-fabric-memcache.svc.cluster.local:11211",
+            "alpha-memcached-1.memcached-pool.dx4c-fabric-memcache.svc.cluster.local:11211",
+            "alpha-memcached-2.memcached-pool.dx4c-fabric-memcache.svc.cluster.local:11211"
+          ]
+        },
+        "beta": {
+          "servers": [
+            "beta-memcached-0.memcached-pool.dx4c-fabric-memcache.svc.cluster.local:11211",
+            "beta-memcached-1.memcached-pool.dx4c-fabric-memcache.svc.cluster.local:11211",
+          ]
+        },
+        "common_cache": {
+          "servers": [
+            "gamma-memcached-0.memcached-pool.dx4c-fabric-memcache.svc.cluster.local:11211",
+          ]
+        }
+      },
+      "route": {
+        "type": "PrefixSelectorRoute",
+        "policies": {
+          "a": "@createReplicatedPool(alpha)",
+          "b": "@createReplicatedPool(beta)"
+        },
+        "wildcard": "PoolRoute|common_cache"
+      }
+    }

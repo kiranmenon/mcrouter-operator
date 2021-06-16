@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: '{{ meta.mcrouter.name }}'
+  name: '{{ meta.name }}-mcrouter'
   namespace: '{{ meta.namespace }}'
 spec:
   replicas: 1

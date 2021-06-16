@@ -1,0 +1,25 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: '{{ pool.name }}-memcached'
+  namespace: '{{ meta.namespace }}'
+spec:
+  replicas: {{ pool.size|int }}
+  serviceName: '{{ meta.name }}-memcached'
+  selector:
+    matchLabels:
+      app: '{{ meta.name }}-cache'
+  template:
+    metadata:
+      labels:
+        app: '{{ meta.name }}-cache'
+    spec:
+      containers:
+      - name: memcached
+        image: '{{ memcached.image }}'
+        ports:
+          - containerPort: 11211
+{% if image_pull_secrets != '' %}
+      imagePullSecrets:
+        - name: {{ image_pull_secrets }}
+{%  endif %}

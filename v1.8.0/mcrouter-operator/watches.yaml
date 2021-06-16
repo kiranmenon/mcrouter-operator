@@ -1,0 +1,7 @@
+---
+# Use the 'create api' subcommand to add watches to this file.
+- version: v1alpha4
+  group: cache.targetkiranp
+  kind: Mcrouter
+  role: mcrouter
+#+kubebuilder:scaffold:watch

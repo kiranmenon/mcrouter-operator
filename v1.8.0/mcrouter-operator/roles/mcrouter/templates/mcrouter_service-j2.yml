@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+    name: '{{ meta.name }}-mcrouter'
+    namespace: '{{ meta.namespace }}'
+spec:
+    selector:
+        app: mcrouter
+    ports:
+        - port: 11211
+          targetport: {{ mcrouter_port }}
+          

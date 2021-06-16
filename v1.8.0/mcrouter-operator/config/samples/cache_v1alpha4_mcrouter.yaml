@@ -1,0 +1,7 @@
+apiVersion: cache.targetkiranp/v1alpha4
+kind: Mcrouter
+metadata:
+  name: mcrouter-sample
+spec:
+  # Add fields here
+  foo: bar
