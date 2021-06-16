@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: memcached
-        image: '{{ memcached.image }}'
+        image: '{{ spec.memcached.image }}'
         ports:
           - containerPort: 11211
-{% if image_pull_secrets != '' %}
+{% if spec.image_pull_secrets  != '' %}
       imagePullSecrets:
-        - name: {{ image_pull_secrets }}
+        - name: {{ spec.image_pull_secrets  }}
 {%  endif %}

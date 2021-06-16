@@ -22,19 +22,19 @@ spec:
           - /app/config.json
           - --validate-config=run 
           - -p 
-          - "{{ mcrouter_port }}"
-{% if debug_fifo_root != '' %}
-          - --debug-fifo-root={{ debug_fifo_root }}
+          - "{{ spec.mcrouter.port }}"
+{% if spec.mcrouter.debug_fifo_root != '' %}
+          - --debug-fifo-root={{ spec.mcrouter.debug_fifo_root }}
 {% endif %}
-        image: '{{ mcrouter_image }}'
+        image: '{{ spec.mcrouter.image }}'
         ports:
-          - containerPort: {{ mcrouter_port }}
+          - containerPort: {{ spec.mcrouter.port }}
         volumeMounts:
           - mountPath: /app 
             name: mcrouter-config-volume 
-{% if image_pull_secrets != '' %}
+{% if spec.image_pull_secrets != '' %}
       imagePullSecrets:
-        - name: {{ image_pull_secrets }}
+        - name: {{ spec.image_pull_secrets }}
 {%  endif %}
         volumes:
           - name: mcrouter-config-volume 

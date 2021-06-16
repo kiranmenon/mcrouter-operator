@@ -8,5 +8,5 @@ spec:
         app: mcrouter
     ports:
         - port: 11211
-          targetport: {{ mcrouter_port }}
+          targetport: {{ spec.mcrouter.port }}
           
