@@ -1,12 +1,6 @@
 ---
 # defaults file for Mcrouter
-mcrouter_image: targetkiranp/mcrouter:v0.1
-mcrouter_port: 5000
-memcached_image: memcached:1.5-alpine
-memcached_pool_size: 2
-memcached_port: 11211
 pool_setup: replicated
-image_pull_secrets: ''
 meta:
   name: my
   namespace: my-memcached-system
@@ -18,3 +12,5 @@ spec:
   image_pull_secrets: ''
   memcached:
     image: targetkiranp/memcached:1.5-alpine
+pool:
+  size: 2
